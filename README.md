@@ -64,14 +64,14 @@ Note: The whole context of the page is available in the 2 blocks.
 In your Wagon site, add the following line to your Gemfile:
 
     group :misc do
-      gem 'locomotivecms_solid', github: 'locomotivecms/liquid_extensions'
+      gem 'locomotivecms_liquid_extensions', github: 'locomotivecms/liquid_extensions'
     end
 
 ### Engine
 
 In the Gemfile of your engine, add the following line:
 
-    gem 'locomotivecms_solid', github: 'locomotivecms/liquid_extensions'
+    gem 'locomotivecms_liquid_extensions', github: 'locomotivecms/liquid_extensions'
 
 
 ## Developers / Contributors
