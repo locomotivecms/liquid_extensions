@@ -1,7 +1,9 @@
 # LocomotiveCMS::LiquidExtensions
 
-It is a list of useful Liquid blocks, tags and filters which can be all embedded in both **Wagon** and the **Engine**.
+This gem includes list of useful Liquid blocks, tags and filters which can be all embedded in both **Wagon** and the **LocomotiveCMS engine**.
 Behind the scene, it uses Solid to write reliable and consistant liquid code.
+
+For now, it only works best with the edge versions of Wagon and the engine (master branch).
 
 ## List of tags / blocks
 
