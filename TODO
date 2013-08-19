@@ -1,2 +1,0 @@
-? prevent sending emails if not a post request
-- create_content / update_content tags
