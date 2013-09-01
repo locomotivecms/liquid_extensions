@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     locomotivecms_liquid_extensions (1.0.0)
+      locomotivecms_solid (~> 0.2.1)
       pony (~> 1.5)
 
 GEM
@@ -45,7 +46,6 @@ PLATFORMS
 DEPENDENCIES
   activesupport (~> 3)
   locomotivecms_liquid_extensions!
-  locomotivecms_solid (~> 0.2.1)
   mocha
   rake
   rspec
