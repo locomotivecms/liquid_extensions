@@ -11,10 +11,12 @@ module Locomotive
         context_attribute :wagon
 
         def display(options = {}, &block)
-          pony_options = options_for_pony(options)
+          options       = { html: true }.merge(options)
+          pony_options  = options_for_pony(options)
 
           # get the body
-          pony_options[:body] = self.render_body(pony_options, &block)
+          body_name = options.delete(:html) ? :html_body : :body
+          pony_options[body_name] = self.render_body(pony_options, &block)
 
           # send the email if not in Wagon
           if !wagon
@@ -77,7 +79,7 @@ module Locomotive
           message << "To:       #{email[:to]}"
           message << "Subject:  #{email[:subject]}"
           message << "-----------"
-          message << email[:body].gsub("\n", "\n\t")
+          message << (email[:body] || email[:html_body]).gsub("\n", "\n\t")
           message << "-----------"
 
           current_context.registers[:logger].info message.join("\n") + "\n\n"

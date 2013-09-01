@@ -7,7 +7,7 @@ describe Locomotive::LiquidExtensions::Tags::SendEmail do
   describe '#display' do
 
     let(:tokens) { ['Hello ', '{{ send_email.to }}', '{% endsend_email %}', 'outside'] }
-    let(:options) { "to: 'john@doe.net', from: 'me@locomotivecms.com', subject: 'Hello world', smtp_address: 'smtp.example.com', smtp_user_name: 'user', smtp_password: 'password'" }
+    let(:options) { "to: 'john@doe.net', from: 'me@locomotivecms.com', subject: 'Hello world', html: false, smtp_address: 'smtp.example.com', smtp_user_name: 'user', smtp_password: 'password'" }
     let(:assigns) { {} }
     let(:context) { Liquid::Context.new({}, assigns, { logger: CustomLogger }) }
 
@@ -15,10 +15,10 @@ describe Locomotive::LiquidExtensions::Tags::SendEmail do
 
     it 'sends the email over Pony' do
       Pony.expects(:mail).with(
-        to:       'john@doe.net',
-        from:     'me@locomotivecms.com',
-        subject:  'Hello world',
-        body:     'Hello john@doe.net',
+        to:         'john@doe.net',
+        from:       'me@locomotivecms.com',
+        subject:    'Hello world',
+        body:       'Hello john@doe.net',
         via:      :smtp,
         via_options: {
           address:    'smtp.example.com',
@@ -53,10 +53,10 @@ describe Locomotive::LiquidExtensions::Tags::SendEmail do
       it 'sends the email over Pony' do
         subject.expects(:fetch_page).returns(page)
         Pony.expects(:mail).with(
-          to:       'john@doe.net',
-          from:     'me@locomotivecms.com',
-          subject:  'Hello world',
-          body:     'Hello john@doe.net, Lorem ipsum...',
+          to:         'john@doe.net',
+          from:       'me@locomotivecms.com',
+          subject:    'Hello world',
+          html_body:  'Hello john@doe.net, Lorem ipsum...',
           via:      :smtp,
           via_options: {
             address:    'smtp.example.com',

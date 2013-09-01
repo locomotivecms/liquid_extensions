@@ -15,6 +15,8 @@ Send an email directly from a liquid template. Although, it does break the MVC p
 
 The emails are sent by [Pony](https://github.com/benprew/pony). It is disabled in Wagon, only the logs are output.
 
+By default, email sending is html-formatted. You can disable this behaviour by setting the **html** attribute to false.
+
 #### Usage
 
 The code inside {% sendemail %} and {% endsendemail %} serves as the body of the email. You can access the whole context of your page within the body.
