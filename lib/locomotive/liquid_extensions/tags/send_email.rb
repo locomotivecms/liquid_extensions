@@ -51,7 +51,7 @@ module Locomotive
           if wagon
             current_context.registers[:mounting_point].pages.values.detect { |page| page.handle == handle }
           else
-            current_context.site.pages.where(handle: handle).first
+            current_context.registers[:site].pages.where(handle: handle).first
           end
         end
 

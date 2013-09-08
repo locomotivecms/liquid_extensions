@@ -34,7 +34,12 @@ module Locomotive
           raise Liquid::Error.new('[update] wrong number of parameters (2 are required)') if options.size != 2
 
           [options.first, options.last].tap do |drop, attributes|
-            unless attributes.is_a?(Hash)
+            if attributes.is_a?(Hash)
+              attributes.each do |k, v|
+                # deal with the model directly instead of the liquid drop
+                attributes[k] = v._source if v.respond_to?(:_source)
+              end
+            else
               raise Liquid::Error.new('[update] wrong attributes')
             end
           end
