@@ -39,6 +39,9 @@ module Locomotive
                 # deal with the model directly instead of the liquid drop
                 attributes[k] = v._source if v.respond_to?(:_source)
               end
+
+              # the content entry should not be attached to another site or content type
+              attributes.delete_if { |k, _| %w(site site_id content_type content_type_id).include?(k.to_s) }
             else
               raise Liquid::Error.new('[update] wrong attributes')
             end

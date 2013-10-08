@@ -22,6 +22,10 @@ class CustomDrop < Liquid::Drop
     self._source = source
   end
 
+  def errors
+    self._source.errors.messages.to_hash.stringify_keys
+  end
+
   def before_method(meth)
     self._source.marshal_dump[meth.to_sym]
   end

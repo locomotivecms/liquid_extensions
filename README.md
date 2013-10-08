@@ -42,6 +42,21 @@ If you want to use a page as the template for the email, use the page_handle pro
 
     {% send_email to: params.email, from: 'me@locomotivecms.com', subject: 'Hello world', page_handle: 'email-template', smtp_address: 'smtp.example.com', smtp_user_name: 'user', smtp_password: 'password' %}{% endsend_email %}
 
+### create
+
+#### Description
+
+Create a new entry for any content types of the current site. Again, it does break the MVC pattern, so use it wisely.
+
+#### Usage
+
+    {% create 'projects', title: 'Your new title' %}
+    <p>The project {{ project.title }} was created with success</p>
+    {% else %}
+    <p>Arrggh, there was an error.</p>
+    {% endupdate %}
+
+Note: The whole context of the page is available in the 2 blocks.
 
 ### update
 

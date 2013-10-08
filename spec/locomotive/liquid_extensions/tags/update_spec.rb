@@ -61,6 +61,18 @@ describe Locomotive::LiquidExtensions::Tags::Update do
 
     end
 
+    describe 'security' do
+
+      let(:options) { "project, title: 'LocomotiveCMS', site_id: 42" }
+
+      it 'only gets secure attributes' do
+        model.expects(:attributes=).with(title: 'LocomotiveCMS')
+        model.expects(:save).returns(true)
+        subject.render(context).should be == 'Locomotive has been updated'
+      end
+
+    end
+
     context 'in Wagon' do
 
       let(:assigns) { { 'project' => model, 'wagon' => true } }

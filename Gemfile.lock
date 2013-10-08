@@ -2,8 +2,18 @@ PATH
   remote: .
   specs:
     locomotivecms_liquid_extensions (1.0.0)
-      locomotivecms_solid (~> 0.2.1)
       pony (~> 1.5)
+
+PATH
+  remote: ../../gems/liquid
+  specs:
+    locomotivecms-liquid (2.6.0)
+
+PATH
+  remote: ../../gems/solid
+  specs:
+    locomotivecms-solid (0.2.2)
+      locomotivecms-liquid (~> 2.6.0)
 
 GEM
   remote: http://rubygems.org/
@@ -13,20 +23,17 @@ GEM
       multi_json (~> 1.0)
     diff-lcs (1.2.4)
     i18n (0.6.5)
-    locomotive_liquid (2.4.2)
-    locomotivecms_solid (0.2.1)
-      locomotive_liquid (~> 2.4.2)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     metaclass (0.0.1)
-    mime-types (1.24)
+    mime-types (1.25)
     mocha (0.13.3)
       metaclass (~> 0.0.1)
     multi_json (1.7.9)
     polyglot (0.3.3)
-    pony (1.5)
-      mail (> 2.0)
+    pony (1.5.1)
+      mail (>= 2.0)
     rake (10.1.0)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
@@ -45,6 +52,8 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport (~> 3)
+  locomotivecms-liquid!
+  locomotivecms-solid!
   locomotivecms_liquid_extensions!
   mocha
   rake
