@@ -12,7 +12,7 @@ PATH
 PATH
   remote: ../../gems/solid
   specs:
-    locomotivecms-solid (0.2.2)
+    locomotivecms-solid (0.2.2.1)
       locomotivecms-liquid (~> 2.6.0)
 
 GEM

@@ -12,7 +12,7 @@ module Locomotive
 
         def display(*options)
           drop, attributes = self.extract_drop_and_attributes(options)
-          model = drop.try(:_source)
+          model = drop.instance_variable_get(:@_source)
 
           return yield(false) if model.nil?
 
@@ -37,7 +37,9 @@ module Locomotive
             if attributes.is_a?(Hash)
               attributes.each do |k, v|
                 # deal with the model directly instead of the liquid drop
-                attributes[k] = v._source if v.respond_to?(:_source)
+                _source = v.instance_variable_get(:@_source)
+
+                attributes[k] = _source if _source
               end
 
               # the content entry should not be attached to another site or content type
