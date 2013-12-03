@@ -6,7 +6,7 @@ describe Locomotive::LiquidExtensions::Filters::Sample do
 
   it 'returns random element of an array' do
     array = ["Foo", "Bar", "Locomotive"]
-    sample(array, 1).should be_a String
+    sample(array).should be_a String
     array.should include(sample(array, 1))
   end
   
