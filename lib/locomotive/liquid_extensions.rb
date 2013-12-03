@@ -6,6 +6,6 @@ require 'pony'
 end
 
 Liquid::Template.register_filter(Locomotive::LiquidExtensions::Filters::Math)
-
+Liquid::Template.register_filter(Locomotive::LiquidExtensions::Filters::Sample)
 # DEBUG
 # puts "[LocomotiveLiquidExtensions] tags and filters loaded"

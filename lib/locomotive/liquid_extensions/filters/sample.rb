@@ -3,11 +3,11 @@ module Locomotive
     module Filters
       module Sample
 
-        def sample(input, number)
+        def sample(input, number = 1)
           if input.respond_to?(:all) # Content type collection
-            input.all.sample(number)
+            number > 1 ? input.all.sample(number) : input.all.sample
           else
-            input.sample(number)
+            number > 1 ? input.sample(number) : input.sample
           end
         end
 
