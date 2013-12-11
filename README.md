@@ -5,7 +5,45 @@ Behind the scene, it uses Solid to write reliable and consistant liquid code.
 
 For now, it only works best with the edge versions of Wagon and the engine (master branch).
 
+## List of filters
+
+### json
+
+#### Description
+
+The json filter escapes quotes. It can also work on arrays and collections.
+
+#### Usage
+
+Escape quotes of the name of the current site:
+
+    {{ site.name | json }}
+
+Output a single attribute of a collection of content entries:
+
+    {{ projects.all | json: name }}
+
+    "Project #1","Project #2",...,"Project #3"
+
+Output only the name and the description of the list of projects
+
+    {{ projects.all | json: name, description }}
+
+    {"name":"Project #1","description":"Lorem ipsum"},...,{"name":"Project #n","description":"Lorem ipsum"}
+
 ## List of tags / blocks
+
+### for
+
+#### Description
+
+It behaves exactly like the default liquid **for** but with the exception of having an extra property named "join".
+
+#### Usage
+
+    {% for project in projects join: ", " %}{{ project.name }}{% enfor %}
+
+    Project #1, Project #2, Project #3
 
 ### send_email
 
