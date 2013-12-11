@@ -6,7 +6,7 @@ describe Locomotive::LiquidExtensions::Filters::Math do
 
   describe '#mod' do
 
-    it 'it returns correct number modulus' do
+    it 'returns correct number modulus' do
       mod(4, 4).should eq(0)
       mod(4, 8).should eq(4)
       mod(8, 4).should eq(0)
