@@ -30,6 +30,14 @@ describe Locomotive::LiquidExtensions::Tags::For do
 
       it { should be == '42, Acme, Hello world' }
 
+      describe 'with a blank item' do
+
+        let(:array) { [42, 'Acme', nil, 'Hello world', '', "\n"] }
+
+        it { should be == '42, Acme, Hello world' }
+
+      end
+
     end
 
   end

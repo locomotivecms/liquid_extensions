@@ -12,18 +12,27 @@ module Locomotive
           end
         end
 
+        def render(context)
+          super(context).gsub(/#{separator}$/, '')
+        end
+
         def render_all(nodes, context)
-          separator = @attributes['join']
-          content   = super
+          content   = super.strip
+
+          return '' if content.blank?
 
           if context['forloop']['last'] || separator.blank?
-            separator = ''
+            content
+          else
+            content + separator
           end
-
-          content + separator
         end
 
         protected
+
+        def separator
+          @attributes['join']
+        end
 
         def remove_quotes(string)
           # more leading and trailling quotes (simple or double)
