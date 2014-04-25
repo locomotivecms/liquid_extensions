@@ -7,7 +7,8 @@ describe Locomotive::LiquidExtensions::Tags::SendEmail do
   describe '#display' do
 
     let(:tokens) { ['Hello ', '{{ send_email.to }}', '{% endsend_email %}', 'outside'] }
-    let(:options) { "to: 'john@doe.net', from: 'me@locomotivecms.com', subject: 'Hello world', html: false, smtp_address: 'smtp.example.com', smtp_user_name: 'user', smtp_password: 'password'" }
+    let(:attachment) { '' }
+    let(:options) { "to: 'john@doe.net', from: 'me@locomotivecms.com', subject: 'Hello world', html: false, smtp_address: 'smtp.example.com', smtp_user_name: 'user', smtp_password: 'password'#{attachment}" }
     let(:assigns) { {} }
     let(:context) { Liquid::Context.new({}, assigns, { logger: CustomLogger }) }
 
@@ -15,18 +16,77 @@ describe Locomotive::LiquidExtensions::Tags::SendEmail do
 
     it 'sends the email over Pony' do
       Pony.expects(:mail).with(
-        to:         'john@doe.net',
-        from:       'me@locomotivecms.com',
-        subject:    'Hello world',
-        body:       'Hello john@doe.net',
-        via:      :smtp,
-        via_options: {
+        to:           'john@doe.net',
+        from:         'me@locomotivecms.com',
+        subject:      'Hello world',
+        body:         'Hello john@doe.net',
+        via:          :smtp,
+        via_options:  {
           address:    'smtp.example.com',
           user_name:  'user',
           password:   'password'
         }
       )
       subject.render(context).should be == ''
+    end
+
+    context 'with an attachment' do
+
+      context 'inline content' do
+
+        let(:attachment) { ", attachment_name: 'foo.txt', attachment_value: 'Hello world'" }
+
+        it 'sends the email over Pony' do
+          Pony.expects(:mail).with(
+            to:           'john@doe.net',
+            from:         'me@locomotivecms.com',
+            subject:      'Hello world',
+            body:         'Hello john@doe.net',
+            via:          :smtp,
+            via_options:  {
+              address:    'smtp.example.com',
+              user_name:  'user',
+              password:   'password'
+            },
+            attachment:   {
+              'foo.txt' => 'Hello world'
+            }
+          )
+          subject.render(context).should be == ''
+        end
+
+      end
+
+      context 'remote content' do
+
+        let(:assigns) { { 'host' => 'acme.org' } }
+        let(:attachment) { ", attachment_name: 'foo.txt', attachment_value: '/somewhere/foo.txt'" }
+
+        before do
+          Net::HTTP.expects(:get).with(URI('http://acme.org/somewhere/foo.txt')).returns('Hello world [file]')
+        end
+
+        it 'sends the email over Pony' do
+          Pony.expects(:mail).with(
+            to:           'john@doe.net',
+            from:         'me@locomotivecms.com',
+            subject:      'Hello world',
+            body:         'Hello john@doe.net',
+            via:          :smtp,
+            via_options:  {
+              address:    'smtp.example.com',
+              user_name:  'user',
+              password:   'password'
+            },
+            attachment:   {
+              'foo.txt' => 'Hello world [file]'
+            }
+          )
+          subject.render(context).should be == ''
+        end
+
+      end
+
     end
 
     context 'in Wagon' do

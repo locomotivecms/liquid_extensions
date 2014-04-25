@@ -5,4 +5,9 @@ class CustomLogger
     # puts message
   end
 
+  def self.error(message)
+    # DEBUG
+    # puts message
+  end
+
 end
