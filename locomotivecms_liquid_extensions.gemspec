@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake'
   s.add_development_dependency 'activesupport', '~> 3'
 
-  s.add_dependency 'pony', '~> 1.5'
+  s.add_dependency 'pony', '~> 1.8'
   s.add_dependency 'locomotivecms_solid', '~> 0.2.1'
 
   s.require_path = 'lib'

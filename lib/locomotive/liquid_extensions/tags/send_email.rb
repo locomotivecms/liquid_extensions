@@ -64,7 +64,7 @@ module Locomotive
 
           # attachment?
           if attachment = extract_attachment(options)
-            options[:attachment] = attachment
+            options[:attachments] = attachment
           end
 
           options
