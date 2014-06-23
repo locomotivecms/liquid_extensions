@@ -13,6 +13,7 @@ module Locomotive
 
       end
 
+      ::Liquid::Template.register_filter(Sample)
     end
   end
 end

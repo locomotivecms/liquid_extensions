@@ -8,6 +8,7 @@ module Locomotive
         end
 
       end
+      ::Liquid::Template.register_filter(Math)
     end
   end
 end

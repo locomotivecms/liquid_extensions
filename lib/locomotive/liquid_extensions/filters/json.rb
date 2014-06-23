@@ -32,6 +32,7 @@ module Locomotive
         end
 
       end
+      ::Liquid::Template.register_filter(Json)
 
     end
   end
