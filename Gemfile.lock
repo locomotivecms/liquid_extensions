@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     locomotivecms_liquid_extensions (1.1.0)
-      locomotivecms_solid (~> 0.2.2)
+      locomotivecms-solid (~> 0.2.2.1)
       pony (~> 1.8)
 
 GEM
@@ -13,9 +13,9 @@ GEM
       multi_json (~> 1.0)
     diff-lcs (1.2.5)
     i18n (0.6.11)
-    locomotive_liquid (2.4.2)
-    locomotivecms_solid (0.2.2)
-      locomotive_liquid (~> 2.4.2)
+    locomotivecms-liquid (2.6.0)
+    locomotivecms-solid (0.2.2.1)
+      locomotivecms-liquid (~> 2.6.0)
     mail (2.6.1)
       mime-types (>= 1.16, < 3)
     metaclass (0.0.4)
