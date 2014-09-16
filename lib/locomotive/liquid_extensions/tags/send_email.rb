@@ -9,6 +9,7 @@ module Locomotive
 
         # not nil if processed from Wagon
         context_attribute :wagon
+        context_attribute :host
 
         def display(options = {}, &block)
           options       = { html: true }.merge(options)
@@ -60,6 +61,12 @@ module Locomotive
             options[:via]         = :smtp
             options[:via_options] = smtp_options
           end
+
+          # attachment?
+          if attachment = extract_attachment(options)
+            options[:attachments] = attachment
+          end
+
           options
         end
 
@@ -73,6 +80,42 @@ module Locomotive
           end
         end
 
+        def extract_attachment(options = {})
+          name, content = nil
+
+          options.delete_if do |key, value|
+            if key.to_s =~ /^attachment_(.+)/
+              case $1.to_sym
+              when :name  then name = value
+              when :value then content = read_attachment(value)
+              end
+            end
+          end
+
+          if name.present? && content.present?
+            { name => content }
+          end
+        end
+
+        def read_attachment(value)
+          uri_string, inline = case value
+          when /^https*:\/\// then [value, false]
+          when /^\// then ["http://#{host}#{value}", false]
+          else
+            [value, true]
+          end
+
+          return value if inline
+
+          begin
+            uri = URI(uri_string)
+            Net::HTTP.get(uri)
+          rescue Exception => e
+            logger.error "[SendEmail] Unable to read the '#{uri_string}' uri, error: #{e.message}"
+            nil
+          end
+        end
+
         def log_email(email)
           message = ["Sent email via #{email[:via]} (#{email[:via_options].inspect}):"]
           message << "From:     #{email[:from]}"
@@ -82,7 +125,11 @@ module Locomotive
           message << (email[:body] || email[:html_body]).gsub("\n", "\n\t")
           message << "-----------"
 
-          current_context.registers[:logger].info message.join("\n") + "\n\n"
+          logger.info message.join("\n") + "\n\n"
+        end
+
+        def logger
+          current_context.registers[:logger]
         end
 
       end

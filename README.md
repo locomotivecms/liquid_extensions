@@ -5,7 +5,45 @@ Behind the scene, it uses Solid to write reliable and consistant liquid code.
 
 For now, it only works best with the edge versions of Wagon and the engine (master branch).
 
+## List of filters
+
+### json
+
+#### Description
+
+The json filter escapes quotes. It can also work on arrays and collections.
+
+#### Usage
+
+Escape quotes of the name of the current site:
+
+    {{ site.name | json }}
+
+Output a single attribute of a collection of content entries:
+
+    {{ projects.all | json: name }}
+
+    "Project #1","Project #2",...,"Project #3"
+
+Output only the name and the description of the list of projects
+
+    {{ projects.all | json: name, description }}
+
+    {"name":"Project #1","description":"Lorem ipsum"},...,{"name":"Project #n","description":"Lorem ipsum"}
+
 ## List of tags / blocks
+
+### for
+
+#### Description
+
+It behaves exactly like the default liquid **for** but with the exception of having an extra property named "join".
+
+#### Usage
+
+    {% for project in projects join: ", " %}{{ project.name }}{% enfor %}
+
+    Project #1, Project #2, Project #3
 
 ### send_email
 
@@ -57,6 +95,18 @@ Create a new entry for any content types of the current site. Again, it does bre
     {% endupdate %}
 
 Note: The whole context of the page is available in the 2 blocks.
+=======
+It is also possible to attach a file to the email.
+
+You can pass directly some text:
+
+    {% send_email to: params.email, from: 'me@locomotivecms.com', subject: 'Hello world', page_handle: 'email-template', smtp_address: 'smtp.example.com', smtp_user_name: 'user', smtp_password: 'password', attachment_name: 'my_file.txt', attachment_value: 'hello world' %}{% endsend_email %}
+
+Or an url, or even, a path to a local file:
+
+    {% send_email to: params.email, from: 'me@locomotivecms.com', subject: 'Hello world', page_handle: 'email-template', smtp_address: 'smtp.example.com', smtp_user_name: 'user', smtp_password: 'password', attachment_name: 'my_file.txt', attachment_value: '/somewhere/test.txt' %}{% endsend_email %}
+
+Note: An attachment's mime-type is set based on the filename (as dictated by the ruby gem mime-types). So 'foo.pdf' has a mime-type of 'application/pdf'
 
 ### update
 

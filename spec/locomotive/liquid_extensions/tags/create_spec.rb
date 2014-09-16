@@ -8,7 +8,8 @@ describe Locomotive::LiquidExtensions::Tags::Create do
 
     let(:markup)    { "'projects', title: 'LocomotiveCMS'" }
     let(:tokens)    { ['{{ project.title }}', ' has been created', '{% else %}', 'Failed - ', '{{project.errors.first.first }}', ' ', '{{project.errors.first.last }}', '{% endcreate %}', 'outside'] }
-    let(:options)   { { locale: Liquid::I18n.new } }
+    # let(:options)   { { locale: Liquid::I18n.new } }
+    let(:options)   { {} }
     let(:assigns)   { { 'wagon' => false } }
     let(:registers) { {} }
     let(:context)   { Liquid::Context.new({}, assigns, { logger: CustomLogger }.merge(registers)) }
