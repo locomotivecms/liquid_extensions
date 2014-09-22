@@ -42,6 +42,28 @@ module Locomotive
           string.gsub(/^(['"]+)/, '').gsub(/(['"]+)$/, '')
         end
 
+        # Dirty hack which is a consequence of the terrible code in the original for tag.
+        def strict_parse(markup)
+          p = ::Liquid::Parser.new(markup)
+          @variable_name = p.consume(:id)
+          raise ::Liquid::SyntaxError.new(options[:locale].t("errors.syntax.for_invalid_in"), line)  unless p.id?('in')
+          @collection_name = p.expression
+          @name = "#{@variable_name}-#{@collection_name}"
+          @reversed = p.id?('reversed')
+
+          @attributes = {}
+          while p.look(:id) && p.look(:colon, 1)
+            # FIXME (Did): patch allowing the join option
+            unless attribute = p.id?('limit') || p.id?('offset') || p.id?('join')
+              raise ::Liquid::SyntaxError.new(options[:locale].t("errors.syntax.for_invalid_attribute"), line)
+            end
+            p.consume
+            val = p.expression
+            @attributes[attribute] = val
+          end
+          p.consume(:end_of_string)
+        end
+
       end
 
       ::Liquid::Template.register_tag('for', For)
