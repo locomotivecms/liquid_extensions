@@ -31,6 +31,28 @@ Output only the name and the description of the list of projects
 
     {"name":"Project #1","description":"Lorem ipsum"},...,{"name":"Project #n","description":"Lorem ipsum"}
 
+### money
+
+#### Description
+
+Formats a number into a currency string (e.g., $13.65). You can customize the format in the options.
+
+#### Usage
+
+    {{ "42.00" | money }}
+    {{ product.price | money: precision:2, unit:"&euro;", separator:",", delimiter:"", format:"%n %u" }}
+
+### percentage
+
+#### Description
+
+Formats a number as a percentage string (e.g., 65%). You can customize the format in the options
+
+#### Usage
+
+    {{ "100" | percentage }}
+    {{ a_percentage | percentage: precision:2, separator:",", delimiter:"", significant:true }}
+
 ## List of tags / blocks
 
 ### for

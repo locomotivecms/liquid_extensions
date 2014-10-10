@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    locomotivecms_liquid_extensions (1.1.0)
+    locomotivecms_liquid_extensions (1.2.0)
       locomotivecms-solid (~> 0.2.2.1)
       pony (~> 1.8)
 

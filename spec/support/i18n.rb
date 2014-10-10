@@ -1,0 +1,1 @@
+I18n.load_path += [File.join(File.dirname(__FILE__), '..', 'fixtures', 'locales', 'en.yml')]
