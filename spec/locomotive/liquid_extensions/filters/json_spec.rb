@@ -4,55 +4,51 @@ describe Locomotive::LiquidExtensions::Filters::Json do
 
   include Locomotive::LiquidExtensions::Filters::Json
 
-  describe '#json' do
+  let(:input) { nil }
+  subject     { json(*input) }
 
-    let(:input) { nil }
-    subject     { json(*input) }
+  describe 'adds quotes to a string' do
 
-    describe 'adds quotes to a string' do
+    let(:input) { 'foo' }
+    it { should eq %("foo") }
 
-      let(:input) { 'foo' }
-      it { should eq %("foo") }
+  end
 
-    end
+  context 'drop' do
 
-    context 'drop' do
+    describe 'includes only the fields specified' do
 
-      describe 'includes only the fields specified' do
-
-        let(:input) { [CustomModel.new(title: 'Acme', body: 'Lorem ipsum'), 'title'] }
-        it { should eq %("title":"Acme") }
-
-      end
+      let(:input) { [CustomModel.new(title: 'Acme', body: 'Lorem ipsum'), 'title'] }
+      it { should eq %("title":"Acme") }
 
     end
 
-    context 'collections' do
+  end
 
-      describe 'adds brackets and quotes to a collection' do
+  context 'collections' do
 
-        let(:input) { [['foo', 'bar']] }
-        it { should eq %(["foo","bar"]) }
+    describe 'adds brackets and quotes to a collection' do
 
-      end
+      let(:input) { [['foo', 'bar']] }
+      it { should eq %(["foo","bar"]) }
 
-      describe 'includes the first field' do
+    end
 
-        let(:input) {
-          [[CustomModel.new(title: 'Acme', body: 'Lorem ipsum'),
-            CustomModel.new(title: 'Hello world', body: 'Lorem ipsum')], 'title'] }
-        it { should eq %("Acme","Hello world") }
+    describe 'includes the first field' do
 
-      end
+      let(:input) {
+        [[CustomModel.new(title: 'Acme', body: 'Lorem ipsum'),
+          CustomModel.new(title: 'Hello world', body: 'Lorem ipsum')], 'title'] }
+      it { should eq %("Acme","Hello world") }
 
-      describe 'includes the specified fields' do
+    end
 
-        let(:input) {
-          [[CustomModel.new(title: 'Acme', body: 'Lorem ipsum', date: '2013-12-13'),
-            CustomModel.new(title: 'Hello world', body: 'Lorem ipsum', date: '2013-12-12')], 'title, body'] }
-        it { should eq %({"title":"Acme","body":"Lorem ipsum"},{"title":"Hello world","body":"Lorem ipsum"}) }
+    describe 'includes the specified fields' do
 
-      end
+      let(:input) {
+        [[CustomModel.new(title: 'Acme', body: 'Lorem ipsum', date: '2013-12-13'),
+          CustomModel.new(title: 'Hello world', body: 'Lorem ipsum', date: '2013-12-12')], 'title, body'] }
+      it { should eq %({"title":"Acme","body":"Lorem ipsum"},{"title":"Hello world","body":"Lorem ipsum"}) }
 
     end
 
