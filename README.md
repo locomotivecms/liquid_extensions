@@ -40,7 +40,7 @@ Formats a number into a currency string (e.g., $13.65). You can customize the fo
 #### Usage
 
     {{ "42.00" | money }}
-    {{ product.price | money: precision:2, unit:"&euro;", separator:",", delimiter:"", format:"%n %u" }}
+    {{ product.price | money: "precision:2, unit:'€', separator:',', delimiter:'', format:'%n %u'" }}
 
 ### percentage
 
@@ -51,7 +51,7 @@ Formats a number as a percentage string (e.g., 65%). You can customize the forma
 #### Usage
 
     {{ "100" | percentage }}
-    {{ a_percentage | percentage: precision:2, separator:",", delimiter:"", significant:true }}
+    {{ a_percentage | percentage: "precision:2, separator:',', delimiter:'', significant:true" }}
 
 ## List of tags / blocks
 
