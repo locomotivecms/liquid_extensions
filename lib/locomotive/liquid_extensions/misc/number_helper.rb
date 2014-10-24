@@ -2,8 +2,6 @@
 
 unless defined?(Rails)
 
-  puts "defining ActionView::Helpers::NumberHelper"
-
   require 'active_support/core_ext/hash/keys'
   require 'active_support/core_ext/hash/reverse_merge'
   require 'active_support/core_ext/big_decimal/conversions'
