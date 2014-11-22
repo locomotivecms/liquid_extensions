@@ -102,6 +102,43 @@ If you want to use a page as the template for the email, use the page_handle pro
 
     {% send_email to: params.email, from: 'me@locomotivecms.com', subject: 'Hello world', page_handle: 'email-template', smtp_address: 'smtp.example.com', smtp_user_name: 'user', smtp_password: 'password' %}{% endsend_email %}
 
+It is also possible to attach a file to the email.
+
+You can pass directly some text:
+
+    {% send_email to: params.email, from: 'me@locomotivecms.com', subject: 'Hello world', page_handle: 'email-template', smtp_address: 'smtp.example.com', smtp_user_name: 'user', smtp_password: 'password', attachment_name: 'my_file.txt', attachment_value: 'hello world' %}{% endsend_email %}
+
+Or an url, or even, a path to a local file:
+
+    {% send_email to: params.email, from: 'me@locomotivecms.com', subject: 'Hello world', page_handle: 'email-template', smtp_address: 'smtp.example.com', smtp_user_name: 'user', smtp_password: 'password', attachment_name: 'my_file.txt', attachment_value: '/somewhere/test.txt' %}{% endsend_email %}
+
+Note: An attachment's mime-type is set based on the filename (as dictated by the ruby gem mime-types). So 'foo.pdf' has a mime-type of 'application/pdf'
+
+### facebook_posts ###
+
+#### Description ####
+
+Display the posts of a Facebook account. The Liquid code inside the **facebook_posts** tag will be used as the template to display a single Facebook post.
+
+A liquid variable named **facebook_post** is available inside. It contains the following attributes representing a Facebook post.
+  - name
+  - message
+  - picture
+  - link
+  - created_time
+
+#### Usage ####
+
+    <ul>
+      {% facebook_posts account: 'my_account', access_token: 'my access token', limit: 10 %}
+        <li>
+          <a href="{{ facebook_post.link }}">{{ facebook_post.name }}</a>
+          <br/>
+          Posted on {{ facebook_post.created_time | date: "%a, %d %b %Y" }}
+        </li>
+      {% endfacebook_posts %}
+    </ul>
+
 ### create
 
 #### Description
@@ -117,18 +154,7 @@ Create a new entry for any content types of the current site. Again, it does bre
     {% endupdate %}
 
 Note: The whole context of the page is available in the 2 blocks.
-=======
-It is also possible to attach a file to the email.
 
-You can pass directly some text:
-
-    {% send_email to: params.email, from: 'me@locomotivecms.com', subject: 'Hello world', page_handle: 'email-template', smtp_address: 'smtp.example.com', smtp_user_name: 'user', smtp_password: 'password', attachment_name: 'my_file.txt', attachment_value: 'hello world' %}{% endsend_email %}
-
-Or an url, or even, a path to a local file:
-
-    {% send_email to: params.email, from: 'me@locomotivecms.com', subject: 'Hello world', page_handle: 'email-template', smtp_address: 'smtp.example.com', smtp_user_name: 'user', smtp_password: 'password', attachment_name: 'my_file.txt', attachment_value: '/somewhere/test.txt' %}{% endsend_email %}
-
-Note: An attachment's mime-type is set based on the filename (as dictated by the ruby gem mime-types). So 'foo.pdf' has a mime-type of 'application/pdf'
 
 ### update
 
@@ -160,7 +186,7 @@ In your Wagon site, add the following line to your Gemfile:
 
 In the Gemfile of your engine, add the following line:
 
-    gem 'locomotivecms_liquid_extensions', github: 'locomotivecms/liquid_extensions'
+    gem 'locomotivecms_liquid_extensions', github: 'locomotivecms/liquid_extensions', branch: 'hosting'
 
 
 ## Developers / Contributors
@@ -192,4 +218,4 @@ Run the tests suite
 
 Feel free to contact me at did at locomotivecms dot com.
 
-Copyright (c) 2013 NoCoffee, released under the MIT license
+Copyright (c) 2014 NoCoffee, released under the MIT license

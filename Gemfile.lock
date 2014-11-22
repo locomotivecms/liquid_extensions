@@ -12,6 +12,9 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     diff-lcs (1.2.5)
+    httparty (0.11.0)
+      multi_json (~> 1.0)
+      multi_xml (>= 0.5.2)
     i18n (0.6.11)
     locomotivecms-liquid (2.6.0)
     locomotivecms-solid (0.2.2.1)
@@ -23,6 +26,7 @@ GEM
     mocha (1.1.0)
       metaclass (~> 0.0.1)
     multi_json (1.10.1)
+    multi_xml (0.5.5)
     pony (1.11)
       mail (>= 2.0)
     rake (10.3.2)
@@ -44,6 +48,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport (~> 3)
+  httparty (~> 0.11.0)
   locomotivecms_liquid_extensions!
   mocha
   rake
