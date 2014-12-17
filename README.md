@@ -67,6 +67,47 @@ It behaves exactly like the default liquid **for** but with the exception of hav
 
     Project #1, Project #2, Project #3
 
+### cache ###
+
+#### Description ####
+
+Wrap `Rails.cache.fetch` with a `{% cache %}` liquid tag. Useful for
+partial page caching above and beyond existing LocomotiveCMS caching
+features. For example, around content entry loops rendering snippets.
+
+#### Usage ####
+
+Wrap blocks of code in your template with the `{% cache %}` tag, sending in 
+one or more keys to be used. Keys can be either strings or page-level variables which will be evaluated.
+Send in multiple keys as comma-separated list.
+
+For example:
+
+    {% assign variable = 'key2' %}
+    {% cache 'key1', variable, 'key3' %}
+      {% for example in contents.examples %}
+        {% include 'example_item' with example %}
+      {% endfor %}
+    {% endcache %}
+
+Within your engine (not wagon), this will make a call to
+
+    Rails.cache.fetch("locomotive/key1/key2/key3")
+
+If there is a cache hit, the found content will be returned and rendered.
+If there is a miss, the block inside the `{% cache %}` tag will be executed,
+and the result will be written to the cache before the content is
+rendered.
+
+Your LocomotiveCMS engine must be configured to use a
+memcache-equivalent datastore through the dalli gem in order for
+this to work. Otherwise it will count as a cache miss every time. Check your Rails logs to
+watch cache misses vs. hits as well as composite keys being used.
+
+**Note:** Cache must currently be manually reset on your engine through
+`irb` by executing `Rails.cache.clear` after any changes to contents.
+
+
 ### send_email
 
 #### Description
