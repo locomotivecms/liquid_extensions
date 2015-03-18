@@ -12,5 +12,6 @@ Liquid::Template.register_filter(Locomotive::LiquidExtensions::Filters::Sample)
 Liquid::Template.register_filter(Locomotive::LiquidExtensions::Filters::Json)
 Liquid::Template.register_filter(Locomotive::LiquidExtensions::Filters::Hexdigest)
 Liquid::Template.register_filter(Locomotive::LiquidExtensions::Filters::Md5sum)
+Liquid::Template.register_filter(Locomotive::LiquidExtensions::Filters::Gravatar)
 # DEBUG
 # puts "[LocomotiveLiquidExtensions] tags and filters loaded"
