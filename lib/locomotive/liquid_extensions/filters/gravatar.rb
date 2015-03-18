@@ -24,13 +24,13 @@ module Locomotive
           if params.empty?
             url
           else
-            param_str = params.map{|k,v| "#{k}=#{v}"}.join('&amp;')
+            param_str = params.map{|k,v| "#{k}=#{v}"}.join('&')
             "#{url}?#{param_str}"
           end
         end
 
         def gravatar_tag(input, *opts)
-          url = gravatar_url(input, *opts)
+          url = gravatar_url(input, *opts).gsub('&', '&amp;')
           "<img src=\"#{url}\" alt=\"Gravatar\" class=\"gravatar\" />"
         end
 
