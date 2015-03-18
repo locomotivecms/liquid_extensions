@@ -7,6 +7,74 @@ For now, it only works best with the edge versions of Wagon and the engine (mast
 
 ## List of filters
 
+### gravatar_tag
+
+#### Description
+
+Generates an image tag for a [Gravatar](https://en.gravatar.com/). The image properties can be customized.
+To generate a Gravatar, only the email address of the user is needed.
+
+#### Usage
+
+Simple usage generating the tag for the default gravatar.
+
+    {{ 'me@example.com' | gravatar_tag }}
+
+    <img src="http://www.gravatar.com/avatar/2e0d5407ce8609047b8255c50405d7b1" alt="Gravatar" class="gravatar" />
+
+Specifying the size.
+
+    {{ 'size@example.com' | gravatar_url: 'size:200' }}
+
+    <img src="http://www.gravatar.com/avatar/7b9bc448398cd7effd62e2d0bad057f7?s=200" alt="Gravatar" class="gravatar" />
+
+Specifying multiple properties.
+
+    {{ 'multiple@example.com' | gravatar_url: 's:100', 'd:mm' }}
+
+    <img src="http://www.gravatar.com/avatar/1c583c45005f83eaae25dd8bb68c4330?s=100&d=mm" alt="Gravatar" class="gravatar" />
+
+See *Usage* for `gravatar_url` for additional usage information.
+
+### gravatar_url
+
+#### Description
+
+Generates a URL for a [Gravatar](https://en.gravatar.com/) image. The image properties can be customized.
+
+#### Usage
+
+Simple usage generating the URL for the default gravatar.
+
+    {{ 'me@example.com' | gravatar_url }}
+
+    http://www.gravatar.com/avatar/2e0d5407ce8609047b8255c50405d7b1
+
+Specifying the size.
+
+    {{ 'size@example.com' | gravatar_url: 'size:200' }}
+
+    http://www.gravatar.com/avatar/7b9bc448398cd7effd62e2d0bad057f7?s=200
+
+Specifying multiple properties.
+
+    {{ 'multiple@example.com' | gravatar_url: 's:100', 'd:mm' }}
+
+    http://www.gravatar.com/avatar/1c583c45005f83eaae25dd8bb68c4330?s=100&d=mm
+
+Available properties are:
+
+* `s` or `size` Width and height of the Gravatar (all images are square). The default is 80.
+* `d` or `default` Type of image to use if there's no Gravatar associated with the email address. Valid options are:
+    * `404` Return a 404 instead of an image
+    * `mm` Mystery man - silhouette of a person
+    * `identicon` Geometric pattern
+    * `monsterid` Generated 'moster'
+    * `wavatar` Generated face with varying background
+    * `retro` Pixelated image
+    * `blank` Transparent image
+* `r` or `rating` Maximum allowed rating of the Gravatar. Valid options are g, pg, r, and x.
+
 ### json
 
 #### Description
@@ -30,6 +98,16 @@ Output only the name and the description of the list of projects
     {{ projects.all | json: name, description }}
 
     {"name":"Project #1","description":"Lorem ipsum"},...,{"name":"Project #n","description":"Lorem ipsum"}
+
+### md5sum
+
+#### Description
+
+Calculates the md5sum of a string as a string (in hexadecimal).
+
+#### Usage
+
+    {{ "Hello World!" | md5sum }}
 
 ### money
 
