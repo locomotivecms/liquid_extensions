@@ -24,7 +24,7 @@ module Locomotive
           if params.empty?
             url
           else
-            param_str = params.map{|k,v| "#{k}=#{v}"}.join('&')
+            param_str = params.map{|k,v| "#{k}=#{v}"}.join('&amp;')
             "#{url}?#{param_str}"
           end
         end
