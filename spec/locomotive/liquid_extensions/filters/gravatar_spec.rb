@@ -6,7 +6,7 @@ describe Locomotive::LiquidExtensions::Filters::Gravatar do
 
   it 'generates a correct url' do
     email    = 'me@example.com'
-    expected = 'http://www.gravatar.com/avatar/2e0d5407ce8609047b8255c50405d7b1'
+    expected = '//www.gravatar.com/avatar/2e0d5407ce8609047b8255c50405d7b1'
     actual   = gravatar_url(email)
     actual.should be_a String
     actual.should eql expected
@@ -18,7 +18,7 @@ describe Locomotive::LiquidExtensions::Filters::Gravatar do
     tag.should be_a String
     tag.should start_with '<img '
     tag.should end_with '/>'
-    tag.should include 'src="http://www.gravatar.com/avatar/2e0d5407ce8609047b8255c50405d7b1"'
+    tag.should include 'src="//www.gravatar.com/avatar/2e0d5407ce8609047b8255c50405d7b1"'
   end
 
   it 'escapes characters in an img tag' do

@@ -8,7 +8,7 @@ module Locomotive
         def gravatar_url(input, *opts)
           cleaned = input.strip.downcase
           hash    = Digest::MD5.hexdigest(cleaned)
-          url     = "http://www.gravatar.com/avatar/#{hash}"
+          url     = "//www.gravatar.com/avatar/#{hash}"
 
           params = {}
           opts.each do |opt|
